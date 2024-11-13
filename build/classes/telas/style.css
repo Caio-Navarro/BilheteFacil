@@ -1,0 +1,72 @@
+/* Estilos Gerais dos Botões */
+.button {
+    -fx-background-color: #6A5ACD; /* Roxo Escuro */
+    -fx-text-fill: #FFFFFF; /* Texto Branco */
+    -fx-padding: 10px; /* Espaçamento interno */
+    -fx-font-size: 14px; /* Tamanho da fonte */
+    -fx-background-radius: 10px; /* Bordas arredondadas */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.2, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #5C4CA1; /* Roxo mais escuro ao passar o mouse */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 8, 0.3, 0, 2);
+}
+
+.button:pressed {
+    -fx-background-color: #4E3E7E; /* Roxo ainda mais escuro ao pressionar */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0.2, 0, 0);
+}
+
+/* Campos de Texto */
+.text-field {
+    -fx-background-color: #FFFAFA; /* Fundo branco */
+    -fx-border-color: #B7C3D7; /* Cor da borda */
+    -fx-border-radius: 10px; /* Bordas arredondadas */
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+}
+
+/* Estilos do ScrollBar */
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #6A5ACD; /* Roxo Escuro */
+    -fx-background-radius: 5em;
+}
+
+/* Estilos para Cartões de Eventos */
+.event-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 0);
+}
+
+/* Botão de Comprar */
+.buy-button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 5px;
+    -fx-background-radius: 10;
+}
+
+.buy-button:hover {
+    -fx-background-color: #3A7CC2;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.2, 0, 1);
+}

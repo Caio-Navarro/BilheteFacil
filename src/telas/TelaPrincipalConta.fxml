@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="1050.0" style="-fx-background-color: #F3F4F6;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerTelaPrincipalConta">
+   <children>
+      <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20;">
+         <children>
+            <Pane fx:id="pnlInformacoes" prefHeight="554.0" prefWidth="793.0" style="-fx-background-color: #FFFAFA; -fx-background-radius: 20;">
+               <children>
+                  <Label layoutX="30.0" layoutY="24.0" text="Informações do Usuário" textFill="#333333">
+                     <font>
+                        <Font name="Berlin Sans FB" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="30.0" layoutY="80.0" prefWidth="733.0" spacing="20.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <Label text="Nome:" textFill="#333333">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblNomeUser" prefHeight="25.0" prefWidth="449.0" text="Faça login novamente para atualizar suas informações!" textFill="RED">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0">
+                           <children>
+                              <Label text="Usuário:" textFill="#333333">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblUserNome" textFill="#333333">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <Label text="Data de Nascimento:" textFill="#333333">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblDataNascimento" textFill="#333333">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <Label text="Telefone:" textFill="#333333">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblTelefone" textFill="#333333">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                           <Label text="Email:" textFill="#333333">
+                              <font>
+                                 <Font name="System Bold" size="16.0" />
+                              </font>
+                           </Label>
+                           <Label fx:id="lblEmail" textFill="#333333">
+                              <font>
+                                 <Font size="16.0" />
+                              </font>
+                           </Label>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="btnEditarInformacoes" layoutX="30.0" layoutY="298.0" onAction="#telaEditarInfo" prefWidth="150.0" style="-fx-background-color: #6A5ACD; -fx-text-fill: white; -fx-background-radius: 15;" text="Editar Informações" />
+                  <Button fx:id="btnExcluirConta" layoutX="187.0" layoutY="298.0" onAction="#excluirConta" prefWidth="150.0" style="-fx-background-color: #6A5ACD; -fx-text-fill: white; -fx-background-radius: 15;" text="Excluir Conta" />
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <VBox alignment="CENTER" prefHeight="576.0" prefWidth="256.0" style="-fx-background-color: #6A5ACD; -fx-background-radius: 20; -fx-padding: 0;">
+         <children>
+            <Pane prefHeight="53.0" prefWidth="216.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 20;">
+               <children>
+                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="196.0" text="     Nome do usuário">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView glyphName="USER" layoutX="19.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
+               </children>
+            </Pane>
+            <Button fx:id="btnIngressos" onAction="#telaIngressos" prefHeight="40.0" prefWidth="275.0" styleClass="thumb" stylesheets="@style.css" text="Eventos">
+               <graphic>
+                  <FontAwesomeIconView glyphName="TICKET" rotate="-45.0" scaleX="1.5" scaleY="1.5" translateX="-5.0" translateY="1.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnMeusIngressos" onAction="#telaMeusIngressos" prefHeight="40.0" prefWidth="294.0" stylesheets="@style.css" text="Meus Ingressos">
+               <graphic>
+                  <FontAwesomeIconView glyphName="INFO" scaleX="1.5" scaleY="1.5" translateX="-5.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnMinhaConta" onAction="#telaMinhaConta" prefHeight="40.0" prefWidth="277.0" stylesheets="@style.css" text="Minha Conta">
+               <graphic>
+                  <FontAwesomeIconView glyphName="USER" scaleX="1.5" scaleY="1.5" translateX="-5.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="btnSair" onAction="#telaLogin" prefHeight="40.0" prefWidth="272.0" stylesheets="@style.css" text="Sair">
+               <graphic>
+                  <FontAwesomeIconView glyphName="SIGN_OUT" scaleX="1.5" scaleY="1.5" translateX="-5.0" translateY="-1.0" />
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+   <effect>
+      <DropShadow color="#1b1eeb" />
+   </effect>
+</AnchorPane>
