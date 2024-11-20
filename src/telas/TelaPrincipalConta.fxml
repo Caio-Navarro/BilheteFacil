@@ -98,12 +98,12 @@
          <children>
             <Pane prefHeight="53.0" prefWidth="216.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 20;">
                <children>
-                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="196.0" text="     Nome do usuário">
+                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="23.0" prefWidth="231.0" text="     Nome do usuário">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIconView glyphName="USER" layoutX="19.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
+                  <FontAwesomeIconView glyphName="USER" layoutX="18.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
                </children>
             </Pane>
             <Button fx:id="btnIngressos" onAction="#telaIngressos" prefHeight="40.0" prefWidth="275.0" styleClass="thumb" stylesheets="@style.css" text="Eventos">

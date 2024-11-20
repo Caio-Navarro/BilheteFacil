@@ -63,6 +63,7 @@ public class ControllerTelaCompra implements Initializable {
     String precoString = "";
     int quantidadeIngressos = 0;
     String quantidadeString = "";
+    String stsEvento = "";
 
     public void trocarTela(Stage stage, String caminhoFXML, String tituloCena) {
         try {
@@ -122,6 +123,17 @@ public class ControllerTelaCompra implements Initializable {
             }
 
             System.out.println("Preço (Texto Limpo): " + precoText);
+            
+            if(stsEvento.equals("I")){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Desculpe! esse evento está invativo :(");
+                alert.showAndWait();
+                
+                Stage telaIngressos = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                trocarTela(telaIngressos, "/telas/TelaPrincipalIngressos.fxml", "BilheteFácil");
+                return;
+            }
 
             float valorUnitario = Float.parseFloat(precoText);
             int quantidade = Integer.parseInt(txtQuantidadeCompra.getText().trim());
@@ -170,7 +182,7 @@ public class ControllerTelaCompra implements Initializable {
     public void carregarDetalhesEvento(int idEvento) {
         ControllerTelaPrincipal.idEvento = idEvento;
 
-        String sql = "SELECT eventos.nome, eventos.dt_evento, eventos.local_evento, eventos.descricao, "
+        String sql = "SELECT eventos.nome, eventos.sts, eventos.dt_evento, eventos.local_evento, eventos.descricao, "
                 + "ingressos.id_ingresso, ingressos.valor, ingressos.quantidade_disponivel "
                 + "FROM eventos "
                 + "JOIN ingressos ON eventos.id_evento = ingressos.id_evento "
@@ -184,6 +196,7 @@ public class ControllerTelaCompra implements Initializable {
                 this.idIngresso = rs.getInt("id_ingresso");
 
                 nome = rs.getString("nome");
+                stsEvento = rs.getString("sts");
                 localEvento = rs.getString("local_evento");
                 descricao = rs.getString("descricao");
                 dataString = rs.getDate("dt_evento") != null

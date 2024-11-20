@@ -3,6 +3,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -16,63 +17,13 @@
          <children>
             <Pane fx:id="pnlInformacoes" prefHeight="554.0" prefWidth="793.0" style="-fx-background-color: #FFFAFA; -fx-background-radius: 20; -fx-padding: 20;">
                <children>
-                  <Pane layoutX="12.0" layoutY="19.0" prefHeight="525.0" prefWidth="485.0" style="-fx-background-color: #F5F5F5; -fx-background-radius: 20;">
-                     <children>
-                        <Label layoutX="18.0" layoutY="6.0" text="Meus ingressos" textFill="#333333">
-                           <font>
-                              <Font name="Arial Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        
-                        <!-- Nome do Evento -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="TICKET" layoutX="25.0" layoutY="90.0" size="20" />
-                        <Label fx:id="lblNomeEventoIng" layoutX="64.0" layoutY="70.0" prefHeight="30.0" prefWidth="279.0" text="Nome do Evento">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-
-                        <!-- Data do Evento -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="CALENDAR" layoutX="26.0" layoutY="142.0" size="20" />
-                        <Label fx:id="lblDataEventoIng" layoutX="64.0" layoutY="120.0" prefHeight="30.0" prefWidth="223.0" text="Data do Evento">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-
-                        <!-- Local do Evento -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="MAP_MARKER" layoutX="29.0" layoutY="196.0" scaleX="1.2" scaleY="1.2" size="20" />
-                        <Label fx:id="lblLocalEventoIng" layoutX="64.0" layoutY="175.0" prefHeight="30.0" prefWidth="411.0" text="Local do Evento">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-
-                        <!-- Descrição do Evento -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="INFO_CIRCLE" layoutX="28.0" layoutY="252.0" size="20" />
-                        <Label fx:id="lblDescricaoEventoIng" alignment="TOP_LEFT" layoutX="63.0" layoutY="230.0" prefHeight="51.0" prefWidth="411.0" text="Descrição">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-
-                        <!-- Preço do Ingresso -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="MONEY" layoutX="26.0" layoutY="303.0" size="20" />
-                        <Label fx:id="lblValorTotalIng" layoutX="63.0" layoutY="279.0" prefHeight="30.0" prefWidth="223.0" text="Valor Total">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-
-                        <!-- Quantidade Disponível -->
-                        <FontAwesomeIconView fill="SLATEBLUE" glyphName="CUBES" layoutX="26.0" layoutY="346.0" size="20" />
-                        <Label fx:id="lblQuantidadeCompradaIng" layoutX="60.0" layoutY="323.0" prefHeight="30.0" prefWidth="279.0" text="Quantidade Comprada">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
+                  <ScrollPane fx:id="scrollPaneIngressos" layoutX="12.0" layoutY="19.0" prefHeight="525.0" prefWidth="485.0" style="-fx-background: transparent; -fx-background-color: transparent;">
+                     <content>
+                        <VBox fx:id="vboxIngressos" spacing="10.0" style="-fx-padding: 10;">
+                           <!-- Cards de ingressos serão adicionados dinamicamente aqui -->
+                        </VBox>
+                     </content>
+                  </ScrollPane>
                </children>
             </Pane>
          </children>
@@ -81,12 +32,12 @@
          <children>
             <Pane prefHeight="53.0" prefWidth="216.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 20;">
                <children>
-                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="36.0" layoutY="14.0" prefHeight="23.0" prefWidth="216.0" text="     Nome do usuário">
+                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="23.0" prefWidth="231.0" text="     Nome do usuário">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIconView glyphName="USER" layoutX="19.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
+                  <FontAwesomeIconView glyphName="USER" layoutX="18.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
                </children>
             </Pane>
             <Button fx:id="btnIngressos" onAction="#telaIngressos" prefHeight="40.0" prefWidth="275.0" styleClass="thumb" stylesheets="@style.css" text="Eventos">

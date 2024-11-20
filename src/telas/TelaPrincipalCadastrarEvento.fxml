@@ -18,12 +18,6 @@
          <children>
             <Pane fx:id="pnlOverview" prefHeight="554.0" prefWidth="793.0" style="-fx-background-color: #FFFAFA;">
                <children>
-                  <TextField layoutX="588.0" layoutY="13.0" prefHeight="27.0" prefWidth="183.0" promptText="Pesquisa" style="-fx-background-color: #FFFAFA; -fx-border-color: #B7C3D7; -fx-border-radius: 2em;" />
-                  <Label layoutX="319.0" layoutY="-1.0" text="BilheteFácil" textFill="#333333">
-                     <font>
-                        <Font name="Berlin Sans FB" size="24.0" />
-                     </font>
-                  </Label>
                   <Pane layoutX="51.0" layoutY="50.0" prefHeight="502.0" prefWidth="692.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 20;">
                      <children>
                         <Label layoutX="223.0" layoutY="6.0" text="Cadastro de Evento">
@@ -31,18 +25,23 @@
                               <Font name="System Bold" size="27.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtNomeEvento" layoutX="193.0" layoutY="49.0" prefHeight="39.0" prefWidth="296.0" promptText="Nome do Evento" />
-                        <TextField fx:id="txtLocal" layoutX="193.0" layoutY="157.0" prefHeight="39.0" prefWidth="296.0" promptText="Local " />
-                        <TextField fx:id="txtDescricao" layoutX="193.0" layoutY="220.0" prefHeight="71.0" prefWidth="296.0" promptText="Descrição" />
-                        <TextField fx:id="txtValorIngresso" layoutX="193.0" layoutY="316.0" prefHeight="39.0" prefWidth="296.0" promptText="Valor do Ingresso" />
-                        <TextField fx:id="txtQuantidadeIngressos" layoutX="193.0" layoutY="378.0" prefHeight="39.0" prefWidth="296.0" promptText="Quantidade de Ingressos" />
+                        <TextField fx:id="txtNomeEvento" layoutX="193.0" layoutY="49.0" prefHeight="39.0" prefWidth="296.0" promptText="Nome do Evento" style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
+                        <TextField fx:id="txtLocal" layoutX="193.0" layoutY="170.0" prefHeight="39.0" prefWidth="296.0" promptText="Local " style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
+                        <TextField fx:id="txtDescricao" layoutX="193.0" layoutY="220.0" prefHeight="71.0" prefWidth="296.0" promptText="Descrição" style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
+                        <TextField fx:id="txtValorIngresso" layoutX="193.0" layoutY="316.0" prefHeight="39.0" prefWidth="296.0" promptText="Valor do Ingresso" style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
+                        <TextField fx:id="txtQuantidadeIngressos" layoutX="193.0" layoutY="378.0" prefHeight="39.0" prefWidth="296.0" promptText="Quantidade de Ingressos" style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
                         <Button fx:id="btnCadastrarEvento" layoutX="246.0" layoutY="449.0" onAction="#cadastrarEvento" prefHeight="39.0" prefWidth="183.0" style="-fx-background-color: #6A5ACD; -fx-text-fill: white; -fx-background-radius: 15;" text="Cadastrar Evento">
                            <font>
                               <Font size="18.0" />
                            </font></Button>
-                        <DatePicker fx:id="txtDataEvento" layoutX="193.0" layoutY="102.0" prefHeight="39.0" prefWidth="296.0" />
+                        <DatePicker fx:id="txtDataEvento" layoutX="193.0" layoutY="111.0" prefHeight="39.0" prefWidth="296.0" promptText="Data do Evento" style="-fx-background-color: transparent; -fx-border-color: #6A5ACD; -fx-border-width: 0px 0px 2px 0px;" />
                      </children>
                   </Pane>
+                  <Label layoutX="292.0" layoutY="-1.0" text="BilheteFácil - ADMIN" textFill="#333333">
+                     <font>
+                        <Font name="Berlin Sans FB" size="24.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
@@ -51,23 +50,22 @@
          <children>
             <Pane prefHeight="53.0" prefWidth="216.0" style="-fx-background-color: #DCDCDC; -fx-background-radius: 20;">
                <children>
-                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="20.0" prefWidth="196.0" text="     Nome do usuário">
+                  <Label fx:id="txtNomeUsuario" alignment="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="23.0" prefWidth="231.0" text="ADMIN">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIconView glyphName="USER" layoutX="19.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
+                  <FontAwesomeIconView glyphName="USER" layoutX="18.0" layoutY="29.0" scaleX="2.0" scaleY="2.0" />
                </children>
             </Pane>
-            <Button fx:id="btnMeusIngressos" prefHeight="40.0" prefWidth="300.0" stylesheets="@style.css" text="Meus Ingressos">
+            <Button fx:id="btnEditarEvento" onAction="#telaAdmin" prefHeight="40.0" prefWidth="275.0" styleClass="thumb" stylesheets="@style.css" text="Editar Evento">
                <graphic>
-                  <FontAwesomeIconView glyphName="INFO" scaleX="1.5" scaleY="1.5" translateX="-5.0" />
+                  <FontAwesomeIconView glyphName="PENCIL" scaleX="1.5" scaleY="1.5" translateX="-7.0" translateY="1.0" />
                </graphic>
             </Button>
-            <Button fx:id="btnCadastrarEvento1" onAction="#telaCadastrarEvento" prefHeight="40.0" prefWidth="282.0" stylesheets="@style.css" text="Cadastrar Evento" />
-            <Button fx:id="btnMinhaConta" prefHeight="40.0" prefWidth="277.0" stylesheets="@style.css" text="Minha Conta">
+            <Button fx:id="btnCadastrarEvento1" onAction="#telaCadastrarEvento" prefHeight="40.0" prefWidth="282.0" stylesheets="@style.css" text="Cadastrar Evento">
                <graphic>
-                  <FontAwesomeIconView glyphName="USER" scaleX="1.5" scaleY="1.5" translateX="-5.0" />
+                  <FontAwesomeIconView glyphName="TICKET" scaleX="1.5" scaleY="1.5" translateX="-7.0" />
                </graphic>
             </Button>
             <Button fx:id="btnSair" onAction="#telaLogin" prefHeight="40.0" prefWidth="272.0" stylesheets="@style.css" text="Sair">

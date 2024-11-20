@@ -2,6 +2,7 @@ package controller;
 
 import conexao.Conexao;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -115,7 +116,7 @@ public class ControllerTelaPrincipalConta implements Initializable {
         Stage telaEditarInfo = (Stage) ((Node) event.getSource()).getScene().getWindow();
         trocarTela(telaEditarInfo, "/telas/TelaEditarInfo.fxml", "BilheteFácil");
     }
-    
+
     @FXML
     public void telaMeusIngressos(ActionEvent event) throws Exception {
         Stage telaMeusIngressos = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -129,13 +130,12 @@ public class ControllerTelaPrincipalConta implements Initializable {
         String email = "";
         String telefone = "";
 
-        String sql = "SELECT nome, usuario, dt_nascimento, email, telefone FROM usuarios WHERE usuario = ? AND senha = ?";
+        String sql = "SELECT nome, usuario, dt_nascimento, email, telefone FROM usuarios WHERE id_usuario = ?";
         PreparedStatement ps = null;
 
         try {
             ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setString(1, ControllerLogin.usuario);
-            ps.setString(2, ControllerLogin.senhaUser);
+            ps.setInt(1, ControllerLogin.idUsuario);
 
             ResultSet rs = ps.executeQuery();
 
@@ -173,26 +173,37 @@ public class ControllerTelaPrincipalConta implements Initializable {
         Optional<ButtonType> resultado = confirmacao.showAndWait();
 
         if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            String sql = "DELETE FROM usuarios WHERE usuario = ? AND senha = ?";
+            String sqlDeleteCompras = "DELETE FROM compras WHERE id_usuario = ?";
+            String sqlDeleteUsuario = "DELETE FROM usuarios WHERE id_usuario = ?";
 
-            try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)){
+            try (Connection con = Conexao.getConexao()) {
+                // Iniciar transação
+                con.setAutoCommit(false);
 
-                ps.setString(1, ControllerLogin.usuario);
-                ps.setString(2, ControllerLogin.senhaUser);
-                ps.execute();
-                
-                Alert aviso = new Alert(Alert.AlertType.INFORMATION);
-                aviso.setTitle("Conta excluída");
-                aviso.setContentText("Sua conta foi excluída com sucesso. Até mais!");
-                aviso.showAndWait();
-            
-                Stage telaLogin = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                trocarTela(telaLogin, "/telas/TelaLogin.fxml", "BilheteFácil");
+                try (PreparedStatement psCompras = con.prepareStatement(sqlDeleteCompras); PreparedStatement psUsuario = con.prepareStatement(sqlDeleteUsuario)) {
+
+                    psCompras.setInt(1, ControllerLogin.idUsuario);
+                    psCompras.executeUpdate();
+
+                    psUsuario.setInt(1, ControllerLogin.idUsuario);
+                    psUsuario.executeUpdate();
+
+                    con.commit();
+
+                    Alert aviso = new Alert(Alert.AlertType.INFORMATION);
+                    aviso.setTitle("Conta excluída");
+                    aviso.setContentText("Sua conta foi excluída com sucesso. Até mais!");
+                    aviso.showAndWait();
+
+                    Stage telaLogin = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    trocarTela(telaLogin, "/telas/TelaLogin.fxml", "BilheteFácil");
+                } catch (Exception e) {
+                    con.rollback();
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            
         }
     }
 

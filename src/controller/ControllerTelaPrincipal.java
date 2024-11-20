@@ -20,7 +20,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class ControllerTelaPrincipal implements Initializable {
@@ -43,91 +46,12 @@ public class ControllerTelaPrincipal implements Initializable {
     @FXML
     private Button btnSair;
 
-
-    //----------------------------------------- tela de ingressos
+    //-----------------------------tela de ingressos
     @FXML
-    private Label lblNomeEvento;
-
-    @FXML
-    private Label lblDataEvento;
+    private VBox vboxEventos;
 
     @FXML
-    private Label lblLocalEvento;
-
-    @FXML
-    private Label lblDescricaoEvento;
-
-    @FXML
-    private Label lblQuantidadeIngressos;
-
-    @FXML
-    private Label lblPrecoEvento;
-
-    @FXML
-    private Button btnComprar;
-
-    @FXML
-    private Label lblNomeEvento2;
-
-    @FXML
-    private Label lblDataEvento2;
-
-    @FXML
-    private Label lblLocalEvento2;
-
-    @FXML
-    private Label lblDescricaoEvento2;
-
-    @FXML
-    private Label lblQuantidadeIngressos2;
-
-    @FXML
-    private Label lblPrecoEvento2;
-
-    @FXML
-    private Button btnComprar2;
-    
-    @FXML
-    private Label lblNomeEvento3;
-
-    @FXML
-    private Label lblDataEvento3;
-
-    @FXML
-    private Label lblLocalEvento3;
-
-    @FXML
-    private Label lblDescricaoEvento3;
-
-    @FXML
-    private Label lblQuantidadeIngressos3;
-
-    @FXML
-    private Label lblPrecoEvento3;
-
-    @FXML
-    private Button btnComprar3;
-    
-    @FXML
-    private Label lblNomeEvento4;
-
-    @FXML
-    private Label lblDataEvento4;
-
-    @FXML
-    private Label lblLocalEvento4;
-
-    @FXML
-    private Label lblDescricaoEvento4;
-
-    @FXML
-    private Label lblQuantidadeIngressos4;
-
-    @FXML
-    private Label lblPrecoEvento4;
-
-    @FXML
-    private Button btnComprar4;
+    private ScrollPane scrollPaneEventos;
 
     //----------------------------------
     @FXML
@@ -160,7 +84,7 @@ public class ControllerTelaPrincipal implements Initializable {
 
     @FXML
     private Button btnConfirmar;
-    
+
     public static int idEvento;
 
     public void trocarTela(Stage stage, String caminhoFXML, String tituloCena) {
@@ -198,7 +122,7 @@ public class ControllerTelaPrincipal implements Initializable {
         Stage telaCompra = (Stage) ((Node) event.getSource()).getScene().getWindow();
         trocarTela(telaCompra, "/telas/TelaCompra.fxml", "BilheteFácil");
     }
-    
+
     @FXML
     public void telaMeusIngressos(ActionEvent event) throws Exception {
         Stage telaMeusIngressos = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -206,8 +130,6 @@ public class ControllerTelaPrincipal implements Initializable {
     }
 
     public void inicializarEventos() {
-        ControllerTelaCompra cp = new ControllerTelaCompra();
-
         String sql = "SELECT eventos.id_evento, eventos.nome, eventos.dt_evento, eventos.local_evento, eventos.descricao, "
                 + "ingressos.valor, ingressos.quantidade_disponivel "
                 + "FROM eventos "
@@ -215,7 +137,6 @@ public class ControllerTelaPrincipal implements Initializable {
 
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            int index = 1;
 
             while (rs.next()) {
                 int idEvento = rs.getInt("id_evento");
@@ -223,44 +144,59 @@ public class ControllerTelaPrincipal implements Initializable {
                 String dataString = rs.getDate("dt_evento") != null
                         ? new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("dt_evento"))
                         : "Data Indisponível";
+                String local = rs.getString("local_evento");
+                String descricao = rs.getString("descricao");
                 String precoString = "R$: " + rs.getFloat("valor");
+                int quantidade = rs.getInt("quantidade_disponivel");
 
-                switch (index) {
-                    case 1:
-                        lblNomeEvento.setText(nome);
-                        lblDataEvento.setText(dataString);
-                        lblPrecoEvento.setText(precoString);
-
-                        btnComprar.setOnAction(event -> abrirTelaCompra(event, idEvento));
-                        break;
-                    case 2:
-                        lblNomeEvento2.setText(nome);
-                        lblDataEvento2.setText(dataString);
-                        lblPrecoEvento2.setText(precoString);
-
-                        btnComprar2.setOnAction(event -> abrirTelaCompra(event, idEvento));
-                        break;
-                    case 3:
-                        lblNomeEvento3.setText(nome);
-                        lblDataEvento3.setText(dataString);
-                        lblPrecoEvento3.setText(precoString);
-
-                        btnComprar3.setOnAction(event -> abrirTelaCompra(event, idEvento));
-                    case 4:
-                        lblNomeEvento4.setText(nome);
-                        lblDataEvento4.setText(dataString);
-                        lblPrecoEvento4.setText(precoString);
-
-                        btnComprar4.setOnAction(event -> abrirTelaCompra(event, idEvento));
-                    default:
-                        System.out.println("Mais eventos encontrados, mas sem labels para exibir.");
-                        break;
-                }
-                index++;
+                Pane card = criarCardEvento(idEvento, nome, dataString, local, descricao, precoString, quantidade);
+                vboxEventos.getChildren().add(card); 
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private Pane criarCardEvento(int idEvento, String nome, String data, String local, String descricao, String preco, int quantidade) {
+        Pane card = new Pane();
+        card.setStyle("-fx-background-color: #F5F5F5; -fx-background-radius: 10; -fx-padding: 10;");
+        card.setPrefSize(750, 150);
+
+        Label lblNome = new Label(nome);
+        lblNome.setStyle("-fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #333333;");
+        lblNome.setLayoutX(20);
+        lblNome.setLayoutY(10);
+
+        Label lblData = new Label("Data: " + data);
+        lblData.setStyle("-fx-font-size: 16;");
+        lblData.setLayoutX(20);
+        lblData.setLayoutY(50);
+
+        Label lblLocal = new Label("Local: " + local);
+        lblLocal.setStyle("-fx-font-size: 16;");
+        lblLocal.setLayoutX(20);
+        lblLocal.setLayoutY(80);
+
+        Label lblPreco = new Label(preco);
+        lblPreco.setStyle("-fx-font-size: 16; -fx-text-fill: #6A5ACD;");
+        lblPreco.setLayoutX(500);
+        lblPreco.setLayoutY(10);
+
+        Label lblQuantidade = new Label("Disponível: " + quantidade);
+        lblQuantidade.setStyle("-fx-font-size: 16;");
+        lblQuantidade.setLayoutX(500);
+        lblQuantidade.setLayoutY(50);
+
+        Button btnComprar = new Button("Comprar");
+        btnComprar.setStyle("-fx-background-color: #6A5ACD; -fx-text-fill: white; -fx-background-radius: 15;");
+        btnComprar.setPrefSize(100, 30);
+        btnComprar.setLayoutX(500);
+        btnComprar.setLayoutY(100);
+        btnComprar.setOnAction(event -> abrirTelaCompra(event, idEvento));
+
+        card.getChildren().addAll(lblNome, lblData, lblLocal, lblPreco, lblQuantidade, btnComprar);
+
+        return card;
     }
 
     private void abrirTelaCompra(ActionEvent event, int idEvento) {
@@ -288,14 +224,14 @@ public class ControllerTelaPrincipal implements Initializable {
         String senhaAtual = tfSenhaAtual.getText();
         String senhaNova = tfSenhaNova.getText();
 
-        String sql = "UPDATE usuarios SET nome = ?, usuario = ?, senha = ?, email = ?, telefone = ?, dt_nascimento = ? WHERE usuario = ? AND senha = ?";
+        String sql = "UPDATE usuarios SET nome = ?, usuario = ?, senha = ?, email = ?, telefone = ?, dt_nascimento = ? WHERE id_usuario = ?";
         PreparedStatement ps = null;
 
         if (nomeUsuario.equals("") || userNome.equals("") || senhaAtual.equals("") || senhaNova.equals("") || email.equals("") || telefone.equals("") || dpDataNascimento.getValue() == null) {
             Alert alerta = new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Erro");
 
-            alerta.setHeaderText("Por favor, inisira todos os campos!");
+            alerta.setHeaderText("Por favor, preencha todos os campos!");
             alerta.showAndWait();
         } else {
             try {
@@ -307,8 +243,7 @@ public class ControllerTelaPrincipal implements Initializable {
                 ps.setString(4, email);
                 ps.setString(5, telefone);
                 ps.setDate(6, java.sql.Date.valueOf(dataNascimento));
-                ps.setString(7, ControllerLogin.usuario);
-                ps.setString(8, ControllerLogin.senhaUser);
+                ps.setInt(7, ControllerLogin.idUsuario);
 
                 ps.executeUpdate();
                 ps.close();

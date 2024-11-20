@@ -83,7 +83,6 @@ public class ControllerLogin implements Initializable {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
-                // Define o nome do usuário logado
                 nomeUser = rs.getString("nome");
                 senhaUser = rs.getString("senha");
                 idUsuario = rs.getInt("id_usuario");
