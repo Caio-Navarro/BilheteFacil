@@ -138,7 +138,7 @@ public class ControllerCadastro {
     }
     
     public boolean verificarCredenciais(String usuario, String senha) {
-        String sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
+        String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
         PreparedStatement ps = null;
 
         try {

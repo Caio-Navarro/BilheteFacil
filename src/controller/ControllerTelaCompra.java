@@ -6,7 +6,6 @@ package controller;
 
 import conexao.Conexao;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -115,7 +114,6 @@ public class ControllerTelaCompra implements Initializable {
 
     public void confirmarCompra(Event event) {
         try {
-            // Limpar o texto do preço e converter para float
             String precoText = lblPrecoEventoCompra.getText().replaceAll("[^0-9.,]", "").replace(",", ".");
             if (precoText.isEmpty()) {
                 System.out.println("O campo de preço está vazio.");
@@ -139,7 +137,6 @@ public class ControllerTelaCompra implements Initializable {
             int quantidade = Integer.parseInt(txtQuantidadeCompra.getText().trim());
             float valorTotal = quantidade * valorUnitario;
 
-            // Inserir a compra na tabela 'compras'
             String sqlCompra = "INSERT INTO compras (id_usuario, id_evento, id_ingresso, quantidade, valor_total) "
                     + "VALUES (?, ?, ?, ?, ?)";
 
@@ -152,7 +149,6 @@ public class ControllerTelaCompra implements Initializable {
 
                 int rowsInserted = psCompra.executeUpdate();
                 if (rowsInserted > 0) {
-                    // Atualizar a quantidade de ingressos disponíveis após a compra
                     String sqlUpdateIngressos = "UPDATE ingressos SET quantidade_disponivel = quantidade_disponivel - ? WHERE id_ingresso = ?";
                     try (PreparedStatement psUpdate = Conexao.getConexao().prepareStatement(sqlUpdateIngressos)) {
                         psUpdate.setInt(1, quantidade);
@@ -160,7 +156,6 @@ public class ControllerTelaCompra implements Initializable {
                         psUpdate.executeUpdate();
                     }
 
-                    // Exibir alerta de sucesso
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Compra Confirmada");
                     alert.setHeaderText("Compra realizada com sucesso!");
