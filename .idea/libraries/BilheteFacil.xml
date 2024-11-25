@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="BilheteFacil">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/dist/BilheteFacil.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
